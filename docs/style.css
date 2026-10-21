@@ -1,0 +1,292 @@
+
+/* =========================================
+   ESP32 BLE TOUCH MONITOR
+   Styl panelu monitorowania IoT
+   ========================================= */
+
+:root {
+  --bg: #0b1220;
+  --panel: #172235;
+  --panel-light: #1e3048;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --primary: #38bdf8;
+  --secondary: #2dd4bf;
+  --success: #4ade80;
+  --danger: #fb7185;
+  --border: #334155;
+}
+
+/* Podstawowe ustawienia */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 30px 20px;
+  min-height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(
+      circle at top,
+      #193352 0%,
+      var(--bg) 55%
+    );
+}
+
+/* Nagłówek */
+
+header {
+  max-width: 1100px;
+  margin: 0 auto 35px;
+  text-align: center;
+}
+
+header h1 {
+  margin-bottom: 12px;
+  color: var(--primary);
+  font-size: clamp(26px, 4vw, 40px);
+}
+
+header p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Pasek sterowania Bluetooth */
+
+.toolbar {
+  max-width: 1100px;
+  margin: 0 auto 25px;
+  padding: 22px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Przyciski */
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 13px 22px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #08111f;
+  background: var(--primary);
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px #38bdf855;
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#disconnect {
+  background: var(--danger);
+}
+
+#export {
+  background: var(--secondary);
+}
+
+/* Status połączenia */
+
+#status {
+  margin-left: auto;
+  padding: 10px 16px;
+
+  color: var(--muted);
+  background: #0b1220;
+
+  border: 1px solid var(--border);
+  border-radius: 30px;
+
+  font-weight: 600;
+}
+
+/* Karty pomiarowe */
+
+.grid {
+  max-width: 1100px;
+  margin: 0 auto 25px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: linear-gradient(
+    145deg,
+    var(--panel),
+    var(--panel-light)
+  );
+
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 30px 20px;
+  text-align: center;
+
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card h2 {
+  margin: 0 0 18px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.card div[id] {
+  font-size: clamp(24px, 3vw, 42px);
+  font-weight: 800;
+  color: var(--primary);
+  overflow-wrap: anywhere;
+}
+
+.card:nth-child(2) div[id] {
+  color: var(--secondary);
+}
+
+.card:nth-child(3) div[id] {
+  color: var(--success);
+}
+
+.card p {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Wykres i historia */
+
+.chart-section,
+.data-section {
+  max-width: 1100px;
+  margin: 0 auto 25px;
+  padding: 25px;
+
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.chart-section h2,
+.data-section h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+#chart {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  background: #0e1a2b;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+/* Ostatnia wiadomość BLE */
+
+#lastMessage {
+  display: block;
+  padding: 18px;
+
+  background: #0b1220;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  font-family: Consolas, monospace;
+  color: var(--secondary);
+  font-size: 18px;
+}
+
+/* Błędy */
+
+#errorMessage {
+  color: var(--danger);
+  line-height: 1.5;
+}
+
+/* Stopka */
+
+footer {
+  margin: 35px auto 10px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Dostosowanie do tabletów */
+
+@media (max-width: 850px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #status {
+    margin-left: 0;
+  }
+}
+
+/* Dostosowanie do telefonów */
+
+@media (max-width: 600px) {
+  body {
+    padding: 20px 12px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  #status {
+    text-align: center;
+  }
+
+  .card {
+    padding: 25px 15px;
+  }
+
+  .chart-section,
+  .data-section {
+    padding: 16px;
+  }
+}

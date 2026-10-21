@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>ESP32 BLE Touch Monitor</title>
+
+  <link rel="stylesheet" href="./style.css">
+  <script src="./javascript.js" defer></script>
+</head>
+
+<body>
+
+  <header>
+    <h1>📡 ESP32 BLE Touch Monitor</h1>
+    <p>
+      Odczyt czujnika dotykowego GPIO4/T0
+      przez Web Bluetooth
+    </p>
+  </header>
+
+  <div class="toolbar">
+    <button id="connect">Połącz z ESP32</button>
+    <button id="disconnect" disabled>Rozłącz</button>
+    <button id="export" disabled>Eksportuj CSV</button>
+    <span id="status">⚪ Rozłączono</span>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <h2>Wartość czujnika</h2>
+      <div id="raw">—</div>
+      <p>Odczyt touchRead(4)</p>
+    </div>
+
+    <div class="card">
+      <h2>Stan dotyku</h2>
+      <div id="touch">—</div>
+      <p>0 = brak dotyku, 1 = dotknięcie</p>
+    </div>
+
+    <div class="card">
+      <h2>Licznik dotknięć</h2>
+      <div id="count">—</div>
+      <p>Liczba wykrytych dotknięć</p>
+    </div>
+
+  </div>
+
+  <section class="chart-section">
+    <h2>Wykres wartości czujnika</h2>
+    <canvas id="chart" width="900" height="280"></canvas>
+  </section>
+
+  <section class="data-section">
+    <h2>Ostatnia wiadomość BLE</h2>
+    <code id="lastMessage">Brak danych</code>
+    <p id="errorMessage" role="alert"></p>
+  </section>
+
+  <footer>
+    Systemy teleinformatyczne | ESP32 | BLE | GATT
+  </footer>
+
+</body>
+</html>
